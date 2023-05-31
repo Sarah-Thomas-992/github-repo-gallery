@@ -1,7 +1,7 @@
 // Select the div with class overview
 const overview = document.querySelector(".overview");
-
 const username = "sarah-thomas-992";
+const repoList = document.querySelector(".repo-list");
 
 const getData = async function () {
     const res = await fetch(`https://api.github.com/users/${username}`);
@@ -27,3 +27,12 @@ const displayInfo = function (data) {
     </div>`;
     overview.append(newDiv);
 };
+
+const getRepoList = async function(){
+    const res = await fetch(`https://api.github.com/users/${username}/repos?sort=created?per_page=100`);
+    const repos = await res.json();
+    console.log(repos);
+
+};
+
+getRepoList();
