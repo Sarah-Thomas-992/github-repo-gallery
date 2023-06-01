@@ -26,13 +26,22 @@ const displayInfo = function (data) {
         <p><strong>Number of public repos:</strong> ${data.public_repos}</p>
     </div>`;
     overview.append(newDiv);
+    getRepoList();
 };
 
 const getRepoList = async function(){
-    const res = await fetch(`https://api.github.com/users/${username}/repos?sort=created?per_page=100`);
+    const res = await fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`);
     const repos = await res.json();
-    console.log(repos);
-
+    displayRepoList(repos);
 };
 
-getRepoList();
+const displayRepoList = function(repos){
+    for (const repo of repos){
+        const li = document.createElement("li");
+        li.classList.add("repo");
+        li.innerHTML = `<h3>${repo.name}</h3>`;
+        repoList.append(li);
+    };
+};
+
+
